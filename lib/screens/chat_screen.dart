@@ -14,6 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User loggedInUser;
   String messageText;
+  List<Text> messagesWidgets = [];
 
   @override
   void initState() {
@@ -43,9 +44,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void getMessages() async {
     await for (var snapShot in _firestore.collection('messages').snapshots()) {
-      for(var message in snapShot.docs){
-      print(message.data());
-    }
+      for (var message in snapShot.docs) {
+        print(message.data());
+      }
     }
   }
 
@@ -58,9 +59,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                getMessages();
-                // _auth.signOut();
-                // Navigator.pop(context);
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -71,6 +71,34 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('messages').snapshots(),
+                builder: (context, snapshot) {
+                  messagesWidgets = [];
+                  if (snapshot.hasData) {
+                    final messages = snapshot.data.docs;
+                    for (var message in messages) {
+                      final messageText = message['text'];
+                      final senderText = message['sender'];
+                      final messageWidget = Text(
+                        '$messageText from $senderText',
+                        style: TextStyle(color: Colors.white),
+                      );
+                      messagesWidgets.add(messageWidget);
+                    }
+                    return Column(
+                      children: messagesWidgets,
+                    );
+                  } else
+                    return Container(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                },
+              ),
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
