@@ -1,5 +1,5 @@
 import 'package:flash_chat/components/constants.dart';
-import 'package:flash_chat/components/material_button.dart';
+import 'package:flash_chat/components/widgets/material_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
