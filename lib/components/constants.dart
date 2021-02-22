@@ -34,3 +34,5 @@ const kdecorationTextField =  InputDecoration(
         borderRadius: BorderRadius.all(Radius.circular(32.0)),
       ),
     );
+
+  Color color_principal = Color(0xFF0A0D22);

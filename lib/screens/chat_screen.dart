@@ -1,3 +1,4 @@
+import 'package:flash_chat/components/widgets/errorMessage.dart';
 import 'package:flash_chat/components/widgets/messageStream.dart';
 import 'package:flutter/material.dart';
 import '../components/constants.dart';
@@ -33,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(loggedInUser.email);
       }
     } catch (e) {
-      print(e);
+      errorMessage(context, e.toString());
     }
   }
 

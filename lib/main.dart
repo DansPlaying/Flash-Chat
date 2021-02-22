@@ -3,6 +3,8 @@ import 'package:flash_chat/routes/routes.dart';
 import 'package:flash_chat/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'components/constants.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +20,7 @@ class FlashChat extends StatelessWidget {
         textTheme: TextTheme(
           bodyText1: TextStyle(color: Colors.black54),
         ),
-        scaffoldBackgroundColor:  Color(0xFF0A0D22),
+        scaffoldBackgroundColor:  color_principal,
       ),
       routes: getApplicationRoutes(),
       initialRoute: WelcomeScreen.id ,
